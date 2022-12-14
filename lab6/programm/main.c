@@ -18,7 +18,7 @@ void task_2() {
 }
 
 void task_3(int a1, int a2) {
-	double res = (a1 + a2) / 2;
+	double res = (a1 + a2) / 2.0;
 	
 	printf("3 task: \nres = %f\n\n", res);
 }
@@ -31,11 +31,11 @@ void task_4(int x) {
 }
 
 void task_5() {
-	printf("5 task: \nRubleva \nElena \nAlekseevna\n\n");
+	printf("5 task: \nРублева \nЕлена \nАлексеевна\n\n");
 }
 
 void task_6() {
-	printf("6 task: \nC://NC/README.TXT \n\n");
+	printf("C:\\NC\\README.TXT\n\n");
 }
 
 void task_7(unsigned int count) {
@@ -71,20 +71,20 @@ void task_11() {
 
 void task_12(double r) {
 	double l = 2 * M_PI * r;
-	double s = M_PI * pow(r, 2);
+	double s = M_PI * r * r;
 	
 	printf("12 task: \nl = %f\n s = %f\n\n", l, s);
 }
 
-void task_13(int a, int b) {
-	int p = 2 * (a + b);
-	int s = a * b;
+void task_13(double a, double b) {
+	double p = 2 * (a + b);
+	double s = a * b;
 	
-	printf("13 task: \np = %d\ns = %d\n\n", p, s);
+	printf("13 task: \np = %f\ns = %f\n\n", p, s);
 }
 
-void task_14(int r, int h) {
-	double v = M_PI * pow(r, 2) * h;
+void task_14(double r, double h) {
+	double v = M_PI * r * r * h;
 	printf("14 task: \nv = %f\n\n", v);
 }
 
@@ -100,9 +100,9 @@ int main(void) {
 	task_9(10.235454, 12.5441);
 	task_10();
 	task_11();
-	task_12(1);
-	task_13(1, 2);
-	task_14(1, 25);
+	task_12(1.33);
+	task_13(1.55, 2.12);
+	task_14(1.44, 25.4);
 
 	return 0;
 }
