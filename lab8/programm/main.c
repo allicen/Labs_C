@@ -46,11 +46,15 @@ void task3() {
 }
 
 
-void task4() {
+int task4() {
     int a, b, c, d;
     float x1, x2;
     printf("Введите коэффициент a: ");
     scanf("%d", &a);
+    
+    if (a == 0) {
+    	return 1;
+	}
     
     printf("Введите коэффициент b: ");
     scanf("%d", &b);
@@ -60,10 +64,11 @@ void task4() {
     
     d = pow(b, 2) - 4 * a * c;
     
-    if (a == 0 || d < 0) {
-        printf("Ошибка! A не может быть равно 0, D не может быть меньше 0.");
-        
-    } else if (d == 0){
+    if (d < 0) {
+    	return 1;
+	}
+    
+	if (d == 0){
         x1 = -b / 2 * a;
         printf("Корень квадратного уравнения: x = %f", x1);
     } else {
@@ -72,6 +77,8 @@ void task4() {
         
         printf("Корни квадратного уравнения: x1 = %f, x2 = %f", x1, x2);
     }
+    
+    return 0;
 }
 
 
@@ -79,10 +86,10 @@ void task5() {
     int n;
     scanf("%d", &n);
     
-    if (n % 2 == 0) {
-        printf("Число четное");
+    if (n % 2) {
+    	printf("Число нечетное");
     } else {
-        printf("Число нечетное");
+        printf("Число четное");
     }
 }
 
@@ -92,19 +99,17 @@ void task6() {
     float average = 0.0;
     
     printf("Вводите целые числа, в конце последовательности поставьте 0.\n");
-    
-    while(1) {
-        scanf("%d", &n);
-        
-        if (n != 0) {
-            sum += n;
-            count++;
-        } else {
-            if (count > 0) {
-                average = (float) sum / count;
-            }
-            break;
-        }
+     
+    do {
+    	scanf("%d", &n);
+    	sum += n;
+    	count++;
+	} while (n != 0);
+	
+	count--;
+	
+	if (count > 0) {
+        average = (float) sum / count;
     }
     
     printf("Сумма: %d, среднее арифметическое: %f", sum, average);
@@ -161,38 +166,20 @@ void task8() {
 }
 
 
-void task9() {
+int task9() {
     char str[20];
+    int h = -1, m = -1, s = -1;
     printf("Введите время в формате ЧЧ:ММ:СС: ");
-    scanf("%s", str);
+    scanf("%d%*c%d%*c%d", &h, &m, &s);   
     
-    int secCount = 0, error = 0;
-    int start = 3600, step = 60;
-    
-    char sep[10]=":";
-    char *substr;
-    substr = strtok(str, sep);
-    
-    while (substr != NULL) {
-        
-        int num = atoi(substr);
-        
-        if (num >= 60 || num < 0) {
-            error = 1;
-            break;
-        }
-        
-        secCount += num * start;
-        start /= step;
-    
-        substr = strtok(NULL, sep);
-    }
-    
-    if (error || start > 0) {
-        printf("Введены некорректные данные.");
-    } else {
-        printf("Общее количество секунд: %d", secCount);
-    }
+    if (h == -1 || m == -1 || s == -1) {
+    	return 1;
+	}
+	
+	int secCount = h * 3600 + m * 60 + s;
+	printf("Общее количество секунд: %d", secCount);
+
+	return 0;
 }
 
 
@@ -220,15 +207,39 @@ void task11() {
 
 
 void task12() {
-    int a, b;
-    long long res;
-    printf("Введите число: ");
-    scanf("%d", &a);
-    printf("Введите степень: ");
-    scanf("%d", &b);
+    float a, b;
+    char ch;
+    printf("Введите число 1: ");
+    scanf("%g", &a);
+    printf("Введите число 2: ");
+    scanf("%g", &b);
+    printf("Введите код операции: ");
+    scanf(" %c", &ch);
     
-    res = pow(a, b);
-    printf("a ^ b = %llu", res);
+    printf("a=%f, b=%f:\n", a, b);
+    
+    switch(ch) {
+		case '+': /* Реализация сложения */				
+			printf("%g + %g = %g\n", a, b, a + b); 
+			break;
+		case '-': /* Реализация вычитания */
+			printf("%g - %g = %g\n", a, b, a - b);
+			break;
+		case '*': /* Реализация умножения */ 
+			printf("%g * %g = %g\n", a, b, a * b); 
+			break;
+		case '/': /* Реализация деления */ 
+			printf("%g / %g = %g\n", a, b, a / b); 
+			break;
+		case '%': /* Реализация остатка от деления целых чисел */
+			printf("%d %% %d = %d\n", (int)a, (int)b, (int)a % (int)b);
+			break;
+		case '^': /* Реализация умножения */
+			printf("%g ^ %g = %g", a, b, pow(a, b));
+			break;	
+		default: 
+			printf("Ошибка при вводе выражения.\n");
+	}
 }
 
 
@@ -245,7 +256,10 @@ int main(void) {
     task3();
     
     // 4 задание
-    task4();
+    int outCode = task4();
+    if (outCode == 1) {
+    	printf("Ошибка! A не может быть равно 0, D не может быть меньше 0.");
+	}
     
     // 5 задание
     task5();
@@ -260,7 +274,10 @@ int main(void) {
     task8();
     
     // 9 задание
-    task9();
+    int res = task9();
+    if (res == 1) {
+    	printf("Введены некорректные данные.");
+	}
     
     // 10 задание
     task10();
