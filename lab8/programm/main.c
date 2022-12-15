@@ -216,8 +216,6 @@ void task12() {
     printf("Введите код операции: ");
     scanf(" %c", &ch);
     
-    printf("a=%f, b=%f:\n", a, b);
-    
     switch(ch) {
         case '+': /* Реализация сложения */                
             printf("%g + %g = %g\n", a, b, a + b); 
