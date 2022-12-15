@@ -34,9 +34,9 @@ void task2() {
         scanf("%d", &num);
         
         if (num != 0) {
-        	count++;
-        	sum += num;
-		}        
+            count++;
+            sum += num;
+        }        
     }
     
     average = (float) sum / count;
@@ -129,8 +129,8 @@ void task6() {
     }
     
     for (int i = 0; i < 4; i++) {
-    	printf("Сумма столбца %d: %d\n", i, sumCol[i]);
-	}
+        printf("Сумма столбца %d: %d\n", i, sumCol[i]);
+    }
 }
 
 
@@ -173,13 +173,13 @@ void task8() {
     fflush(stdin);
     
     int count = 0;
-    for (int i = 0; i < strlen(str); i++) {   	
-    	if (str[i] == '\n') {
-    		break;
-		}
-		
-		count++;
-	}
+    for (int i = 0; i < strlen(str); i++) {     
+        if (str[i] == '\n') {
+            break;
+        }
+        
+        count++;
+    }
 
     printf("В строке %llu символов.", count);
 }
@@ -210,34 +210,34 @@ void task10() {
     int len = (int)strlen(str), indexStart = 0, indexFinish = len;
     
     for (int i = 0; i < len; i++) {
-    	if (!startStr && str[i] == ' ') {
-    		indexStart++;
-    		continue;
-		} 
-		
-		if (!startStr) {
-			startStr = 1;
-		}
-		
-		if (!finishStr && str[i] == ' ') {
-			finishStr = 1;
-			indexFinish = i;
-		} else if (str[i] != ' ') {
-			finishStr = 0;
-			indexFinish = len;
-		}
-	}
-	
-	int lenRes = indexFinish - indexStart;
-	char res[lenRes + 1];
-	
-	int indexRes = 0;
-	for (int i = indexStart; i < indexFinish; i++) {
-		res[indexRes] = str[i];
-		indexRes++;
-	}
-	
-	res[lenRes] = '\0';
+        if (!startStr && str[i] == ' ') {
+            indexStart++;
+            continue;
+        } 
+        
+        if (!startStr) {
+            startStr = 1;
+        }
+        
+        if (!finishStr && str[i] == ' ') {
+            finishStr = 1;
+            indexFinish = i;
+        } else if (str[i] != ' ') {
+            finishStr = 0;
+            indexFinish = len;
+        }
+    }
+    
+    int lenRes = indexFinish - indexStart;
+    char res[lenRes + 1];
+    
+    int indexRes = 0;
+    for (int i = indexStart; i < indexFinish; i++) {
+        res[indexRes] = str[i];
+        indexRes++;
+    }
+    
+    res[lenRes] = '\0';
 
     printf("Получившаяся строка: %s, длина = %d", res, lenRes);
 }
@@ -314,49 +314,49 @@ void task13() {
 int main(void) {
     
     // 1 задание
-//    task1();
+    task1();
     
     // 2 задание
-//    task2();
+    task2();
     
-//    // 3 задание
-//    task3();
-//    
-//    // 4 задание
-//    int res = task4();
-//    if (res) {
-//    	printf("Массив не упорядочен по возрастанию.");
-//	} else {
-//		printf("Массив упорядочен по возрастанию.");
-//	}
+    // 3 задание
+    task3();
     
-//    
-//    // 5 задание
-//    task5();
-//    
-//    // 6 задание
-//    task6();
-//    
-//    // 7 задание
-//    task7();
-//    
-//    // 8 задание
-//    task8();
-//    
-//    // 9 задание
-//    task9();
-//    
-//    // 10 задание
+    // 4 задание
+    int res = task4();
+    if (res) {
+      printf("Массив не упорядочен по возрастанию.");
+  } else {
+      printf("Массив упорядочен по возрастанию.");
+  }
+    
+    
+    // 5 задание
+    task5();
+    
+    // 6 задание
+    task6();
+    
+    // 7 задание
+    task7();
+    
+    // 8 задание
+    task8();
+    
+    // 9 задание
+    task9();
+    
+    // 10 задание
     task10();
-//    
-//    // 11 задание
-//    task11();
-//    
-//    // 12 задание
-//    task12();
-//    
-//    // 13 задание
-//    task13();
+    
+    // 11 задание
+    task11();
+    
+    // 12 задание
+    task12();
+    
+    // 13 задание
+    task13();
     
     
     return 0;
