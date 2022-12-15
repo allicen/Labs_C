@@ -25,16 +25,23 @@
 #define COL 20
 
 // 5 задание
-#define SQUARE(num) NUM*NUM
+#define SQUARE(num) ((num)*(num))
 
 // 6 задание
 #define SWAP(a, b) a ^= b ^= a ^= b
 
 // 7 задание
-#define TABLE_WIDTH(n) n >=0 && n <=5 ? 5 : n > 5 && n <=8 ? 6 : 10
+#define ROW_COUNT 10
+#if ROW_COUNT > 0 && ROW_COUNT < 6
+	#define TABLE_WIDTH 5
+#elif ROW_COUNT >= 6 && ROW_COUNT < 9
+	#define TABLE_WIDTH 6
+#else
+	#define TABLE_WIDTH 10
+#endif
 
 // 8 задание
-// Если TEST не определен, то определить констранту TEST
+// Если константа TEST не определена, то определить констранту TEST
 
 
 int main(void) {
@@ -55,10 +62,7 @@ int main(void) {
 	printf("a = %d, b = %d", a, b);
 
 	// 7
-	int countRow;
-	printf("Введите количество строк в таблице: ");
-	scanf("%d", &countRow);
-	printf("Ширина таблицы = %d", TABLE_WIDTH(countRow));
+	printf("Ширина таблицы = %d", TABLE_WIDTH);
 	
 	return 0;
 }
