@@ -24,75 +24,50 @@ int max(int *arr, int size) {
     return max;
 }
 
-int* sort(int *arr, int size, int max) {
-    int arrSortSize = max + 1;
-    int arrSort[arrSortSize];
-    
-    for (int i = 0; i < arrSortSize; i++) {
-        arrSort[i] = 0;
-    }
-    
+void sort(int *arr, int size) {
     for (int i = 0; i < size; i++) {
-        arrSort[arr[i]] = arrSort[arr[i]] + 1;
-    }    
-    
-    int *returnArray = malloc(size * sizeof(int));
-    
-    if (!returnArray) {
-        return NULL;
-    }
-    
-    int index = 0;
-    for (int i = 0; i < arrSortSize; i++) {
-        for (int j = 0; j < arrSort[i]; j++) {
-            returnArray[index] = i;
-            index++;
-        }
-    }
-    
-    return returnArray;
+    	for (int j = i + 1; j < size; j++) {
+    		if (arr[i] > arr[j]) {
+    			int tmp = arr[i];
+    			arr[i] = arr[j];
+    			arr[j] = tmp;
+			}
+		}
+	}
 }
 
 
-int* minMax(int *arr, int size) {
-    int *resMinMax = malloc(2 * sizeof(int));
-    
-    if (!resMinMax) {
-        return NULL;
-    }
-    
+void minMax(int *arr, int size, int *min, int *max) {    
     for (int i = 0; i < size; i++) {
         if (i == 0) {
-            resMinMax[0] = arr[i];
-            resMinMax[1] = arr[i];
+            *min = arr[i];
+            *max = arr[i];
             continue;
         }
         
-        if (arr[i] < resMinMax[0]) {
-            resMinMax[0] = arr[i];
-        } else if (arr[i] > resMinMax[1]) {
-            resMinMax[1] = arr[i];
+        if (arr[i] < *min) {
+            *min = arr[i];
+        } else if (arr[i] > *max) {
+            *max = arr[i];
         }
     }
-    
-    return resMinMax;
 } 
 
 
 
-int rowMaxValueNymber(int table[][4], int rowCount, int colCount) {
+int rowMaxValueNymber(void *table, int rowCount, int colCount) {
     
-    int rowWithMax = 0, maxNum = 0;
+    int rowWithMax = 0, maxNum = 0, (*pmas)[colCount] = table;
     for (int i = 0; i < rowCount; i++) {
         for (int j = 0; j < colCount; j++) {
 
             if (i == 0 && j == 0) {
-                maxNum = table[i][j];
+                maxNum = pmas[i][j];
                 continue;
             }
             
-            if (table[i][j] > maxNum) {
-                maxNum = table[i][j];
+            if (pmas[i][j] > maxNum) {
+                maxNum = pmas[i][j];
                 rowWithMax = i;
             }
         }
@@ -102,8 +77,9 @@ int rowMaxValueNymber(int table[][4], int rowCount, int colCount) {
 }
 
 
-int* sumColumns(int table[][4], int rowCount, int colCount) {
+int* sumColumns(void *table, int rowCount, int colCount) {
     int *arrSum = malloc(colCount * sizeof(int));
+    int (*pmas)[colCount] = table;
     
     if (!arrSum) {
         return NULL;
@@ -112,7 +88,7 @@ int* sumColumns(int table[][4], int rowCount, int colCount) {
     for (int i = 0; i < rowCount; i++) {
         int sum = 0;
         for (int j = 0; j < colCount; j++) {
-            sum += table[i][j];
+            sum += pmas[i][j];
         }
         arrSum[i] = sum;
     }
@@ -150,7 +126,7 @@ char* removeSubstring(char* str, int startIndex, int charCount) {
 
 
 char* enCharToUpperCase(char* str) {
-    char *strUpdate = malloc(strlen(str) * sizeof(char));
+    char *strUpdate = malloc(strlen(str) * sizeof(char)) + 1;
     if (strUpdate) {
         for (int i = 0; i < (int)strlen(str); i++) {
             if (str[i] >= 'a' && str[i] <= 'z') {
@@ -161,15 +137,20 @@ char* enCharToUpperCase(char* str) {
         }
     }
     
+    strUpdate[(int)strlen(str)] = '\0';
+    
     return strUpdate;
 }
 
 
 int strContainNumber(char* str) {
-    
-    while (*str) if (isdigit(*str++)) {
-        return 1;
-    }
+	
+	for (size_t i = 0; str[i] && str[i] != '\n'; i++) {
+		
+		if (str[i] > '0' && str[i] < '9') {
+			return 1;
+		}
+	}
     
     return 0;
 }
@@ -185,25 +166,22 @@ int main(void) {
     
     
     // 2 задание
-    int *arrSort;
-    arrSort = sort(arr, n, maxArr);
-    if (arrSort) {
+    sort(arr, n);
+    if (arr) {
         printf("2. Отсортированный массив arr: ");
         for (int i = 0; i < n; i++) {
-            printf("%d ", arrSort[i]);
+            printf("%d ", arr[i]);
         }
         printf("\n");
-        free(arrSort);
     }
     
     
     // 3 задание
-    int *arrMinMax = minMax(arr, n);
-    if (arrMinMax) {
-        printf("3.1. Минимальное число в массиве arr: %d\n", arrMinMax[0]);
-        printf("3.2. Максимальное число в массиве arr: %d\n", arrMinMax[1]);
-        free(arrMinMax);
-    }
+    int min, max;
+    minMax(arr, n, &min, &max);
+    printf("3.1. Минимальное число в массиве arr: %d\n", min);
+    printf("3.2. Максимальное число в массиве arr: %d\n", max);
+
     
     
     // 4 задание
@@ -228,7 +206,7 @@ int main(void) {
     
     
     // 6 задание
-    char str[] = "qwertyuiopasdfghjkl 123 jhghg";
+    char str[] = "kzhdfkjs 10";
     char *subString = removeSubstring(str, 10, 5);
     if (subString) {
         printf("6. Новая строка: %s\n", subString);
