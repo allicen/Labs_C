@@ -26,14 +26,14 @@ int max(int *arr, int size) {
 
 void sort(int *arr, int size) {
     for (int i = 0; i < size; i++) {
-    	for (int j = i + 1; j < size; j++) {
-    		if (arr[i] > arr[j]) {
-    			int tmp = arr[i];
-    			arr[i] = arr[j];
-    			arr[j] = tmp;
-			}
-		}
-	}
+        for (int j = i + 1; j < size; j++) {
+            if (arr[i] > arr[j]) {
+                int tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+    }
 }
 
 
@@ -144,13 +144,13 @@ char* enCharToUpperCase(char* str) {
 
 
 int strContainNumber(char* str) {
-	
-	for (size_t i = 0; str[i] && str[i] != '\n'; i++) {
-		
-		if (str[i] > '0' && str[i] < '9') {
-			return 1;
-		}
-	}
+    
+    for (size_t i = 0; str[i] && str[i] != '\n'; i++) {
+        
+        if (str[i] > '0' && str[i] < '9') {
+            return 1;
+        }
+    }
     
     return 0;
 }
