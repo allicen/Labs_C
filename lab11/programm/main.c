@@ -27,15 +27,19 @@ void task1() {
 
 
 void task2() {
-    int num, arrSize = 5, sum = 0;
+    int num, arrSize = 5, sum = 0, count = 0;
     float average;
     
     for (int i = 0; i < arrSize; i++) {
         scanf("%d", &num);
-        sum += num;
+        
+        if (num != 0) {
+            count++;
+            sum += num;
+        }        
     }
     
-    average = (float) sum / arrSize;
+    average = (float) sum / count;
     
     printf("Среднее арифметическое: %f", average);
 }
@@ -60,27 +64,19 @@ void task3() {
 }
 
 
-void task4() {
-    int arr[3] = {1, 5, 10};
-    int prev;
+int task4() {
+    int arr[3] = {1, 50, 10};
     
     for (int i = 0; i < 3; i++) {
         if (i == 0) {
-            prev = arr[i];
             continue;
         }
         
-        if (prev <= arr[i]) {
-            prev = arr[i];
-        } else {
-            printf("Массив не упорядочен по возрастанию.");
-            break;
-        }
-        
-        if(i == 2) {
-            printf("Массив упорядочен по возрастанию.");
+        if (arr[i-1] > arr[i]) {
+            return 1;
         }
     }
+    return 0;
 }
 
 
@@ -124,15 +120,17 @@ void task6() {
         {1, 5, 0, 40},
         {1, 45, 0, 4},
     };
-    int sumCol = 0;
+    int sumCol[4] = {0};
     
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 4; j++){
-            sumCol += arr[i][j];
+            sumCol[j] += arr[i][j];
         }
     }
     
-    printf("Сумма столбцов массива arr равна: %d", sumCol);
+    for (int i = 0; i < 4; i++) {
+        printf("Сумма столбца %d: %d\n", i, sumCol[i]);
+    }
 }
 
 
@@ -172,10 +170,18 @@ void task8() {
     printf("Введите строку: ");
     
     fgets(str, 100, stdin);
-      fflush(stdin);
-    str[strcspn(str, "\n")] = '\0';
+    fflush(stdin);
+    
+    int count = 0;
+    for (int i = 0; i < strlen(str); i++) {     
+        if (str[i] == '\n') {
+            break;
+        }
+        
+        count++;
+    }
 
-      printf("В строке \"%s\" %llu символов.", str, strlen(str));
+    printf("В строке %llu символов.", count);
 }
 
 
@@ -183,7 +189,7 @@ void task9() {
     printf("Введите строку английскими буквами: ");
     
     int ch;
-    while ((ch = getchar ()) != EOF) {
+    while ((ch = getchar())) {
         if ('a' <= ch && ch <= 'z') {
             ch += 'A' - 'a';
         }
@@ -194,40 +200,46 @@ void task9() {
 
 void task10() {
     char str[100] = "";
-    char res[100] = "";
-    int startStr = 0, delta = 0;
+    int startStr = 0, finishStr = 0;
     printf("Введите строку: ");
     
     fgets(str, 100, stdin);
-      fflush(stdin);
-    str[strcspn(str, "\n")] = '\0';
+    fflush(stdin);
+    str[strcspn(str, "\n")] = '\0';  
     
-    for (int i = 0; i < (int)strlen(str); i++) {
+    int len = (int)strlen(str), indexStart = 0, indexFinish = len;
+    
+    for (int i = 0; i < len; i++) {
         if (!startStr && str[i] == ' ') {
+            indexStart++;
             continue;
-        }
+        } 
         
-        if (!startStr && str[i] != ' ') {
+        if (!startStr) {
             startStr = 1;
-            delta = i;
         }
         
-        if (startStr) {
-            res[i - delta] = str[i];
+        if (!finishStr && str[i] == ' ') {
+            finishStr = 1;
+            indexFinish = i;
+        } else if (str[i] != ' ') {
+            finishStr = 0;
+            indexFinish = len;
         }
     }
     
-    for (int i = strlen(str); i >= 0; i--) {
-        if (str[i] == ' ') {
-            str[i] = '\0';
-            continue;
-        }
-        if (str[i] != ' ') {
-            break;
-        }
+    int lenRes = indexFinish - indexStart;
+    char res[lenRes + 1];
+    
+    int indexRes = 0;
+    for (int i = indexStart; i < indexFinish; i++) {
+        res[indexRes] = str[i];
+        indexRes++;
     }
     
-      printf("Получившаяся строка: %s, длина = %d", res, (int)strlen(res));
+    res[lenRes] = '\0';
+
+    printf("Получившаяся строка: %s, длина = %d", res, lenRes);
 }
 
 
@@ -311,7 +323,13 @@ int main(void) {
     task3();
     
     // 4 задание
-    task4();
+    int res = task4();
+    if (res) {
+      printf("Массив не упорядочен по возрастанию.");
+  } else {
+      printf("Массив упорядочен по возрастанию.");
+  }
+    
     
     // 5 задание
     task5();
