@@ -32,7 +32,9 @@
 
 // 7 задание
 #define ROW_COUNT 10
-#if ROW_COUNT > 0 && ROW_COUNT < 6
+#if ROW_COUNT < 0
+	#define TABLE_WIDTH 0
+#elif ROW_COUNT < 6
 	#define TABLE_WIDTH 5
 #elif ROW_COUNT >= 6 && ROW_COUNT < 9
 	#define TABLE_WIDTH 6
