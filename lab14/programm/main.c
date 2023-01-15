@@ -43,6 +43,7 @@ typedef union INT {
         unsigned a2 : 8;
         unsigned a3 : 8;
     } bytes;
+    char c;
 } intBytes;
 
 // 4 задание
@@ -61,7 +62,7 @@ typedef enum _MONTH {
     December
 } month;
 
-void push(struct _BOOK** headRef, int id) {
+void push(book** headRef, int id) {
     printf("Книга %d\n", id);
     
     char name[100];
@@ -79,9 +80,9 @@ void push(struct _BOOK** headRef, int id) {
     scanf("%s", &publisher);
     
     printf("Год издания: ");
-    scanf("%d", &year);
+    scanf("%hd", &year);
     
-    struct _BOOK* newBook = (struct book*)malloc(sizeof(struct _BOOK));
+    book* newBook = (struct book*)malloc(sizeof(book));
     strcpy(newBook->writer, writer);
     strcpy(newBook->name, name);
     strcpy(newBook->publisher, publisher);
@@ -91,8 +92,8 @@ void push(struct _BOOK** headRef, int id) {
     *headRef = newBook;
 }
 
-struct _BOOK* constructList(int keys[], int n) {
-    struct _BOOK* head = NULL;
+book* constructList(int keys[], int n) {
+    book* head = NULL;
  
     for (int i = n - 1; i >= 0; i--) {
         push(&head, keys[i]);
@@ -101,8 +102,8 @@ struct _BOOK* constructList(int keys[], int n) {
     return head;
 }
 
-void printList(struct _BOOK* head) {
-    struct _BOOK* ptr = head;
+void printList(book* head) {
+    book* ptr = head;
     while (ptr) {
         printf("%d. Книга: %s, автор: %s, год издания: %d, издательство: %s.\n", ptr->id, ptr->name, ptr->writer, ptr->year, ptr->publisher); 
         ptr = ptr->next;
@@ -121,7 +122,7 @@ int main(void) {
         keys[i] = i;
     }
     
-    struct _BOOK* head = constructList(keys, n);
+    book* head = constructList(keys, n);
     printList(head);
     
     return 0;
