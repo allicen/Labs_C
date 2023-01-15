@@ -170,7 +170,30 @@ int task9() {
     char str[20];
     int h = -1, m = -1, s = -1;
     printf("Введите время в формате ЧЧ:ММ:СС: ");
-    scanf("%d%*c%d%*c%d", &h, &m, &s);   
+    
+    scanf("%s", &str);
+    
+    short i = 0;
+    char sep [10]=":";
+    char *istr;
+    istr = strtok (str,sep);
+    while (istr != NULL) {
+     
+        if (strlen(istr) != strlen(itoa(atoi(istr), istr, 10))) {
+            return 1;
+        }
+      
+        if (i == 0) {
+            h = atoi(istr);
+        } else if (i == 1) {
+            m = atoi(istr);
+        } else {
+            s = atoi(istr);
+        }
+
+        i++;
+        istr = strtok (NULL, sep);
+    }
     
     if (h == -1 || m == -1 || s == -1) {
         return 1;
