@@ -38,12 +38,12 @@ typedef struct _FILM {
 // 3 задание
 typedef union INT {
     struct {
-        unsigned a0 : 8;
-        unsigned a1 : 8;
-        unsigned a2 : 8;
-        unsigned a3 : 8;
+        char a0;
+        char a1;
+        char a2;
+        char a3;
     } bytes;
-    char c;
+    int c;
 } intBytes;
 
 // 4 задание
@@ -83,9 +83,9 @@ void push(book** headRef, int id) {
     scanf("%hd", &year);
     
     book* newBook = (struct book*)malloc(sizeof(book));
-    strcpy(newBook->writer, writer);
-    strcpy(newBook->name, name);
-    strcpy(newBook->publisher, publisher);
+    scanf("%s", &newBook->writer);
+    scanf("%s", &newBook->name);
+    scanf("%s", &newBook->publisher);
     newBook->year = year;
     newBook->id = id;
     newBook->next = *headRef;
