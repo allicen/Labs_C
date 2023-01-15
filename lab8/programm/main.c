@@ -180,18 +180,18 @@ int task9() {
     while (istr != NULL) {
      
         if (strlen(istr) != strlen(itoa(atoi(istr), istr, 10))) {
-    	    return 1;
-	    }
-	  
-	    if (i == 0) {
-	  	    h = atoi(istr);
-	    } else if (i == 1) {
-	  	    m = atoi(istr);
-	    } else {
-	  	    s = atoi(istr);
-	    }
+            return 1;
+        }
+      
+        if (i == 0) {
+            h = atoi(istr);
+        } else if (i == 1) {
+            m = atoi(istr);
+        } else {
+            s = atoi(istr);
+        }
 
-	    i++;
+        i++;
         istr = strtok (NULL, sep);
     }
     
